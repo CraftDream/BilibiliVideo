@@ -261,7 +261,7 @@ object NetworkEngine {
             player.warningAsLang("CookieNotFound")
             return
         }
-        if (showAction.handle(player, bvid, sessData)) {
+        if (showAction.handle(bvid, sessData)) {
             TripleSendRewardsEvent(player, bvid).call()
         }
     }
