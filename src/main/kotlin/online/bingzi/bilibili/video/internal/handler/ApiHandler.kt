@@ -1,5 +1,6 @@
 package online.bingzi.bilibili.video.internal.handler
 
+import online.bingzi.bilibili.video.internal.engine.drive.BilibiliApiDrive
 import online.bingzi.bilibili.video.internal.helper.debug
 import online.bingzi.bilibili.video.internal.helper.debugStatus
 
@@ -11,10 +12,10 @@ abstract class ApiHandler {
         return nextHandler
     }
 
-    abstract fun handle(bvid: String, sessData: String): Boolean
+    abstract fun handle(bilibiliApi: BilibiliApiDrive, bvid: String, sessData: String): Boolean
 
-    protected fun callNextHandler(bvid: String, sessData: String): Boolean {
-        return nextHandler?.handle(bvid, sessData) ?: let {
+    protected fun callNextHandler(bilibiliApi: BilibiliApiDrive, bvid: String, sessData: String): Boolean {
+        return nextHandler?.handle(bilibiliApi, bvid, sessData) ?: let {
             if (debugStatus) {
                 debug("最终处理器 > 视频: $bvid | 通过")
             }
