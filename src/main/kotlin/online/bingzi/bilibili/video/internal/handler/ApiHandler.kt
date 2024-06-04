@@ -12,10 +12,10 @@ abstract class ApiHandler {
         return nextHandler
     }
 
-    abstract fun handle(bilibiliApi: BilibiliApiDrive, bvid: String, sessData: String): Boolean
+    abstract fun handle(bilibiliAPI: BilibiliApiDrive, bvid: String, sessData: String): Boolean
 
-    protected fun callNextHandler(bilibiliApi: BilibiliApiDrive, bvid: String, sessData: String): Boolean {
-        return nextHandler?.handle(bilibiliApi, bvid, sessData) ?: let {
+    protected fun callNextHandler(bilibiliAPI: BilibiliApiDrive, bvid: String, sessData: String): Boolean {
+        return nextHandler?.handle(bilibiliAPI, bvid, sessData) ?: let {
             if (debugStatus) {
                 debug("最终处理器 > 视频: $bvid | 通过")
             }
