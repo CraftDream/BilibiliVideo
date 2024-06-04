@@ -2,7 +2,6 @@ package online.bingzi.bilibili.video.internal.handler
 
 import online.bingzi.bilibili.video.internal.helper.debug
 import online.bingzi.bilibili.video.internal.helper.debugStatus
-import taboolib.common.platform.ProxyPlayer
 
 abstract class ApiHandler {
     private var nextHandler: ApiHandler? = null
@@ -12,12 +11,12 @@ abstract class ApiHandler {
         return nextHandler
     }
 
-    abstract fun handle(player: ProxyPlayer, bvid: String, sessData: String): Boolean
+    abstract fun handle(bvid: String, sessData: String): Boolean
 
-    protected fun callNextHandler(player: ProxyPlayer, bvid: String, sessData: String): Boolean {
-        return nextHandler?.handle(player, bvid, sessData) ?: let {
+    protected fun callNextHandler(bvid: String, sessData: String): Boolean {
+        return nextHandler?.handle(bvid, sessData) ?: let {
             if (debugStatus) {
-                debug("最终处理器 > 玩家: ${player.name} | 视频: $bvid | 通过")
+                debug("最终处理器 > 视频: $bvid | 通过")
             }
             true
         }
