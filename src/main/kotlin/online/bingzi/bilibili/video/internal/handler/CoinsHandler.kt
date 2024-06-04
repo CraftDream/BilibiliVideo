@@ -1,8 +1,8 @@
 package online.bingzi.bilibili.video.internal.handler
 
-import online.bingzi.bilibili.video.internal.engine.NetworkEngine
 import online.bingzi.bilibili.video.internal.helper.debug
 import online.bingzi.bilibili.video.internal.helper.infoAsLang
+import online.bingzi.bilibili.video.internal.engine.drive.BilibiliApiDrive
 
 /**
  * Coins handler
@@ -11,9 +11,9 @@ import online.bingzi.bilibili.video.internal.helper.infoAsLang
  * @constructor Create empty Coins handler
  */
 class CoinsHandler : ApiHandler() {
-    override fun handle(bvid: String, sessData: String): Boolean {
+    override fun handle(bilibiliAPI: BilibiliApiDrive, bvid: String, sessData: String): Boolean {
         debug("硬币处理器 > 视频: $bvid | 接受处理")
-        NetworkEngine.bilibiliAPI.hasCoins(bvid, sessData).execute().let {
+        bilibiliAPI.hasCoins(bvid, sessData).execute().let {
             if (it.isSuccessful) {
                 it.body()?.data?.multiply?.let { count ->
                     if (count < 1) {
@@ -24,6 +24,6 @@ class CoinsHandler : ApiHandler() {
             }
         }
         debug("硬币处理器 > 视频: $bvid | 移交处理")
-        return callNextHandler(bvid, sessData)
+        return callNextHandler(bilibiliAPI, bvid, sessData)
     }
 }
