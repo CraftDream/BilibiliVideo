@@ -261,7 +261,7 @@ object NetworkEngine {
             player.warningAsLang("CookieNotFound")
             return
         }
-        if (showAction.handle(bvid, sessData)) {
+        if (showAction.handle(bilibiliAPI, bvid, sessData)) {
             TripleSendRewardsEvent(player, bvid).call()
         }
     }
