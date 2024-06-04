@@ -1,6 +1,6 @@
 package online.bingzi.bilibili.video.internal.handler
 
-import online.bingzi.bilibili.video.internal.engine.NetworkEngine
+import online.bingzi.bilibili.video.internal.engine.drive.BilibiliApiDrive
 import online.bingzi.bilibili.video.internal.helper.debug
 import online.bingzi.bilibili.video.internal.helper.infoAsLang
 
@@ -11,9 +11,9 @@ import online.bingzi.bilibili.video.internal.helper.infoAsLang
  * @constructor Create empty Like handler
  */
 class LikeHandler : ApiHandler() {
-    override fun handle(bvid: String, sessData: String): Boolean {
+    override fun handle(bilibiliAPI: BilibiliApiDrive, bvid: String, sessData: String): Boolean {
         debug("点赞处理器 > 视频: $bvid | 接受处理")
-        NetworkEngine.bilibiliAPI.hasLike(bvid, sessData).execute().let {
+        bilibiliAPI.hasLike(bvid, sessData).execute().let {
             if (it.isSuccessful) {
                 it.body()?.data?.let { count ->
                     if (count < 1) {
@@ -24,7 +24,7 @@ class LikeHandler : ApiHandler() {
             }
         }
         debug("点赞处理器 > 视频: $bvid | 移交处理")
-        return callNextHandler(bvid, sessData)
+        return callNextHandler(bilibiliAPI, bvid, sessData)
     }
 }
 
